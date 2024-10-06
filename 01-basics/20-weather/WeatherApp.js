@@ -17,11 +17,14 @@ export default defineComponent({
     }
   },
 
-  template: `<div v-for="(weather, index) in weatherData" :key="weather.geographic_name">
-      <h1 v-if="index === 0" class="title">Погода в Средиземье</h1>
+  template: `<div >
+      <h1 class="title">Погода в Средиземье</h1>
 
       <ul class="weather-list">
-        <li class="weather-card" :class="!isDayTime(weather.current.dt, weather.current.sunrise, weather.current.sunset) ? 'weather-card--night' : ''">
+        <li v-for="(weather, index) in weatherData"
+            :key="weather.geographic_name"
+            class="weather-card"
+            :class="{'weather-card--night': !isDayTime(weather.current.dt, weather.current.sunrise, weather.current.sunset)}">
           <div v-if="weather.alert" class="weather-alert">
             <span class="weather-alert__icon">⚠️</span>
             <span class="weather-alert__description">Королевская метеослужба короля Арагорна II: Предвещается наступление сильного шторма.</span>
