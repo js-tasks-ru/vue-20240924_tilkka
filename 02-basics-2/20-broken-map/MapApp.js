@@ -12,28 +12,29 @@ export default defineComponent({
      * Обработчик клика по карте для установки координат метки
      * @param {MouseEvent} event
      */
-    function handleClick(event) {
-      x = event.offsetX
-      y = event.offsetY
-    }
 
-    // Следим за X и Y для установки нового положения
-    watch([x, y], () => {
-      // Находим метку и изменяем её положение
-      const map = document.querySelector('.pin')
-      map.style.left = `${x}px`
-      map.style.top = `${y}px`
-    })
+    function handleClick(event) {
+      x.value = event.offsetX
+      y.value = event.offsetY
+    }
 
     return {
-      handleClick,
+      x,
+      y,
+      handleClick
     }
+
+    /**
+    Comments:
+    The actual error - in setup the value is accessed through the value property. No x and y inside return. 
+    Conceptual error - there is no need to use watch to track changes x and y as we have already applied ref. Vue took over this function. Well, querySelector is too much :)
+    */
   },
 
   template: `
     <div class="map" @click="handleClick">
       <img class="map-image" src="./map.png" alt="Map" draggable="false" />
-      <span class="pin">📍</span>
+      <span :style="{top: y + 'px', left: x + 'px'}" class="pin">📍</span>
     </div>
   `,
 })
