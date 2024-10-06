@@ -6,7 +6,7 @@ export default defineComponent({
 
   setup() {
     const checkedId = ref(1)
-    let meetupTitle = ref('')
+    const meetupTitle = ref('')
 
     const findMeetUpTitle = async () => {
       const { title } = await getMeetup(checkedId.value)
@@ -17,10 +17,8 @@ export default defineComponent({
       await findMeetUpTitle()
     })
 
-    watch(checkedId, async (newId, oldId) => {
-      if (newId !== oldId) {
-        await findMeetUpTitle()
-      }
+    watch(checkedId, async () => {
+      await findMeetUpTitle()
     })
 
     return {
