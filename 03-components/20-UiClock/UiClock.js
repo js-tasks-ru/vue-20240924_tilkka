@@ -4,25 +4,25 @@ export default defineComponent({
   name: 'UiClock',
 
   setup() {
-    const id = ref(null);
-    const time = ref('');
+    const id = ref(0)
+    const time = ref(new Date().toLocaleTimeString(navigator.language, { timeStyle: 'medium' }))
 
     const getTime = () => {
-      return new Date().toLocaleTimeString(navigator.language, { timeStyle: 'medium' });
+      return new Date().toLocaleTimeString(navigator.language, { timeStyle: 'medium' })
     }
     const startTime = () => {
       id.value = setInterval(() => {
-        time.value = getTime();
-      }, 1000);
+        time.value = getTime()
+      }, 1000)
     }
     const stopTime = () => {
-      clearInterval(id.value);
+      clearInterval(id.value)
     }
-    onMounted(startTime);
-    onUnmounted(stopTime);
+    onMounted(startTime)
+    onUnmounted(stopTime)
 
     return {
-      time
+      time,
     }
   },
 
