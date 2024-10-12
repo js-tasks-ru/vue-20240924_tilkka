@@ -1,26 +1,19 @@
-<script>
-import { computed, defineComponent } from 'vue'
+<script setup>
+import { computed } from "vue";
 
-export default defineComponent({
-  name: 'MeetupCover',
-
-  props: {
-    title: {
-      type: String,
-    },
-
-    image: {
-      type: String,
-    },
+const props = defineProps({
+  title: {
+    type: String,
   },
 
-  setup(props) {
-    const bgStyle = computed(() => (props.image ? { '--bg-url': `url('${props.image}')` } : undefined))
-    return {
-      bgStyle,
-    }
+  image: {
+    type: String,
   },
-})
+});
+
+const bgStyle = computed(() =>
+  props.image ? { "--bg-url": `url('${props.image}')` } : undefined,
+);
 </script>
 
 <template>
@@ -34,7 +27,8 @@ export default defineComponent({
   --bg-url: var(--default-cover);
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), var(--bg-url);
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    var(--bg-url);
   display: flex;
   flex-direction: column;
   align-items: center;
