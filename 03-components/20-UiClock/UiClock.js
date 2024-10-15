@@ -4,12 +4,12 @@ export default defineComponent({
   name: 'UiClock',
 
   setup() {
-    let id = 0
-    const time = ref(new Date().toLocaleTimeString(navigator.language, { timeStyle: 'medium' }))
-
     const getTime = () => {
       return new Date().toLocaleTimeString(navigator.language, { timeStyle: 'medium' })
     }
+    let id = 0
+    const time = ref(getTime())
+
     const startTime = () => {
       id = setInterval(() => {
         time.value = getTime()
