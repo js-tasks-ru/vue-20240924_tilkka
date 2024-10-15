@@ -1,31 +1,26 @@
-import { defineComponent } from "vue";
-import WeatherListItem from "./WeatherListItem";
+import { defineComponent } from 'vue'
+import WeatherListItem from './WeatherListItem'
 
 export default defineComponent({
   name: 'WeatherList',
 
   components: {
-    WeatherListItem
+    WeatherListItem,
   },
 
   props: {
     weatherData: {
       type: Array,
-      required: true
-    },
-
-    weatherConditionIcons: {
-      type: Object,
-      required: true
+      required: true,
     },
   },
 
   setup() {
     const isDayTime = (current, sunrise, sunset) => {
-      return current > sunrise && current < sunset;
+      return current > sunrise && current < sunset
     }
     return {
-      isDayTime
+      isDayTime,
     }
   },
 
@@ -35,8 +30,8 @@ export default defineComponent({
         :key="weather.geographic_name"
         class="weather-card"
         :class="{'weather-card--night': !isDayTime(weather.current.dt, weather.current.sunrise, weather.current.sunset)}">
-      <WeatherListItem :weather :icon="weatherConditionIcons[weather.current.weather.id]"/>
+      <WeatherListItem :weather/>
     </li>
 </ul>
-`
+`,
 })
