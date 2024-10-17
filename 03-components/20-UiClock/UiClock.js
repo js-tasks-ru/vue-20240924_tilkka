@@ -7,17 +7,16 @@ export default defineComponent({
     const getTime = () => {
       return new Date().toLocaleTimeString(navigator.language, { timeStyle: 'medium' })
     }
-
-    const id = ref(0)
+    let id = 0
     const time = ref(getTime())
 
     const startTime = () => {
-      id.value = setInterval(() => {
+      id = setInterval(() => {
         time.value = getTime()
       }, 1000)
     }
     const stopTime = () => {
-      clearInterval(id.value)
+      clearInterval(id)
     }
     onMounted(startTime)
     onUnmounted(stopTime)

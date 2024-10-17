@@ -1,4 +1,5 @@
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
+import { WeatherConditionIcons } from './weather.service'
 
 export default defineComponent({
   name: 'WeatherListItem',
@@ -6,19 +7,22 @@ export default defineComponent({
   props: {
     weather: {
       type: Object,
-      required: true
+      required: true,
     },
+  },
 
-    icon: {
-      type: String,
-      required: true
-    },
+  setup() {
+    const weatherConditionIcons = WeatherConditionIcons
+
+    return {
+      weatherConditionIcons,
+    }
   },
 
   template: `
     <div v-if="weather.alert" class="weather-alert">
       <span class="weather-alert__icon">⚠️</span>
-      <span class="weather-alert__description">Королевская метеослужба короля Арагорна II: Предвещается наступление сильного шторма.</span>
+      <span class="weather-alert__description">{{ weather.alert.sender_name }} : {{ weather.alert.description }}.</span>
     </div>
     <div>
       <h2 class="weather-card__name">
@@ -29,7 +33,7 @@ export default defineComponent({
       </div>
     </div>
       <div class="weather-conditions">
-        <div class="weather-conditions__icon" :title="weather.current.weather.description">{{ icon }}</div>
+        <div class="weather-conditions__icon" :title="weather.current.weather.description">{{ weatherConditionIcons[weather.current.weather.id] }}</div>
       <div class="weather-conditions__temp">{{ (weather.current.temp - 273.15).toFixed(1) }} °C</div>
     </div>
     <div class="weather-details">
@@ -50,5 +54,5 @@ export default defineComponent({
         <div class="weather-details__item-value">{{ weather.current.wind_speed }}</div>
     </div>
   </div>
-`
+`,
 })
